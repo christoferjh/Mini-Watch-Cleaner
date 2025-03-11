@@ -1,3 +1,17 @@
+/**
+ * Mini Watch Cleaner
+ * Using A continous rotation servo and some 3d printing.
+ * Running on an Arduino Pro Mini.
+ * A 4 digit led tube for display.
+ * 2 Buttons.
+ * 
+ * Hello, and warning. Here are some code. It works, but I have spend 0 time on making it good or pretty.
+ * I'm uploading it on the chance that someone perhaps will find it usefull as a starting point.
+ * 
+ * 
+ * 
+ */
+
 #include <Arduino.h>
 #include <Servo.h>
 #include "Button.h"
@@ -17,10 +31,7 @@ DIYables_4Digit7Segment_74HC595 display(SCLK, RCLK, DIO);
 #define BUTTON_B A1
 #define SLOW_SPEED_SERVO 2
 
-/* #define MODE_STOP 0
-#define MODE_CLEANING 1
-#define MODE_RINSING 2
-#define MODE_SLOW_CLEANING 3 */
+
 
 enum class MODES {
   STOP,
@@ -127,6 +138,18 @@ void callbackButtonB(char c){
   B10001110,  // F
   B10011100   // ° (degree)
 
+  I have modified the 4 digit 7 segment code to allow for raw input, like this:
+      void setRaw(int pos, byte value);
+
+      void DIYables_4Digit7Segment_74HC595::setRaw(int pos, byte value) {
+        if (pos < 1 || pos > 4)
+          return;
+
+        if (value < 0 || pos > 9)
+          return;
+
+        _digit_sets[pos - 1] = value;
+      }
 
  */
 
@@ -194,13 +217,7 @@ void setup() {
 
 
   myservo.attach(PIN_SERVO);  // attaches the servo on pin 9 to the Servo object
-/*   display.clear();
-  display.setNumber(1, 9);              // set 9 at the 1st digit
-  display.setDot(1);                    // set . at the 1st digit
-  display.setNumber(2, 3);              // set 3 at the 2nd digit
-  display.setChar(3, SegChars::DEGREE); // set ° at the 3rd digit
-  display.setChar(4, SegChars::C);      // set C at the 3rd digit
-  display.show();                       // show on the display */
+
 
     myservo.write(90);
     lastupdate = millis();
@@ -270,19 +287,6 @@ void loop() {
 
   display.loop(); // MUST call the display.loop() function in loop()
 
-  //myservo.write(0);
-  //digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-  //delay(5000);                      // wait for a second
-  //myservo.write(180);
-  //digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  //delay(5000);                      // wait for a second
 
-  /* if (digitalRead(BUTTON_A)==0){
-    myservo.write(0);
-
-  }if (digitalRead(BUTTON_B)==0){
-    myservo.write(90);
-
-  } */
 
 }
