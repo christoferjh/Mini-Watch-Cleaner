@@ -17,5 +17,5 @@ In action:
 
 
 ## Files
-For the 3d model files: https://makerworld.com/en/models/1200703-mini-watch-cleaner#profileId-1213699
+For the 3d model files and instructions: https://makerworld.com/en/models/1200703-mini-watch-cleaner#profileId-1213699
 
